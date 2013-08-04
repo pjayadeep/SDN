@@ -63,8 +63,9 @@ class LBPolicy(ResonancePolicy):
 
     state='default'
 
-    for host in self.fsm.get_portA_hosts() : 
-	    if match(dstip=IP(host)) :
+    for  host in self.fsm.get_portA_hosts() : 
+	    if (match(srcip=IP(host) , dstip=IP('10.0.0.100')) or 
+			match(srcip=IP('10.0.0.100'), dstip=IP(host)) ) :
 	       return self.portA_policy()
 
     return self.portB_policy()
